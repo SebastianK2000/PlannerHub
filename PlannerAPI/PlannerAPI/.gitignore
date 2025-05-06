@@ -1,0 +1,7 @@
+﻿.vs/
+node_modules/
+bin/
+obj/
+.env
+*.log
+reactNativeLayout/
