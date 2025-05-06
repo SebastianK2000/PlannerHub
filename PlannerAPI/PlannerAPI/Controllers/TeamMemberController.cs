@@ -26,7 +26,7 @@ namespace PlannerAPI.Controllers
         {
             _context.TeamMember.Add(teamMember);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetTeamMember), new { id = teamMember.IDteam }, teamMember);
+            return CreatedAtAction(nameof(GetTeamMember), new { id = teamMember.IDteamMember }, teamMember);
         }
 
         [HttpGet("{id}")]

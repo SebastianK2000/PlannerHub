@@ -1,7 +1,10 @@
-﻿namespace PlannerAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PlannerAPI.Models
 {
     public class Trip
     {
+        [Key]
         public int IDtrip { get; set; }
         public int IDuser { get; set; }
         public string TripName { get; set; }

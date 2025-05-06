@@ -1,7 +1,10 @@
-﻿namespace PlannerAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PlannerAPI.Models
 {
     public class Payment
     {
+        [Key]
         public int IDpayment { get; set; }
         public int IDbooking { get; set; }
         public DateTime PaymentDate { get; set; }

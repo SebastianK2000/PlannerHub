@@ -26,7 +26,7 @@ namespace PlannerAPI.Controllers
         {
             _context.TripUser.Add(tripuser);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetTripUser), new { id = tripuser.IDtrip }, tripuser);
+            return CreatedAtAction(nameof(GetTripUser), new { id = tripuser.IDtripUser }, tripuser);
         }
 
         [HttpGet("{id}")]

@@ -1,7 +1,10 @@
-﻿namespace PlannerAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PlannerAPI.Models
 {
     public class Booking
     {
+        [Key]
         public int IDbooking { get; set; }
         public int IDuser { get; set; }
         public int IDaccommodation { get; set; }
