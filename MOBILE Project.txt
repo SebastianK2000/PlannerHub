@@ -1,0 +1,36 @@
+Najważniejsze funkcjonalności: 
+
+Logowanie, Rejestracja - User
+Logowanie, Rejestracja - Admin
+
+Dodawanie użytkowników, usuwanie, edytowanie, wyświetlanie - Admin - Widzi wszystko 
+Dodawanie użytkowników, usuwanie, edytowanie, wyświetlanie - User - Widzi tylko swoje
+Tworzenie teamów CRUD - Admin - Widzi wszystko 
+Tworzenie teamów CRUD - User - Widzi tylko swoje
+
+Contact Us - For User 
+FAQ - User
+Privacy policy - User 
+
+
+CRUD user
+
+Tworzenie teamu - id, name, description, users (foregin key)
+
+Trips - id, name, start, end, destination, description, organizer_id (Foreign Key - odniesienie do Users.user_id — organizator), created_at, organizator
+
+Booking - id, user_id (Foreign Key - odniesienie do Users.user_id), trip_id (Foreign Key - odniesienie do Trips.trip_id), payment_status, created_at, notes, destination, kto rezerwuje
+
+Expense Form - id, user_id obcy, kwota, data, kategoria, Opis wydatku, metoda płatności, uwagi, ilość osób?, kto płacił
+
+
+
+CRUD admin
+
+users - id, name, lastName, email, password_hash, phone, role, created_at
+
+Trips - id, name, start, end, destination, description, organizer_id (Foreign Key - odniesienie do Users.user_id — organizator), created_at
+
+Booking - id, user_id (Foreign Key - odniesienie do Users.user_id), trip_id (Foreign Key - odniesienie do Trips.trip_id), payment_status, created_at
+
+
