@@ -10,15 +10,11 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy
-                .WithOrigins(
-                    "http://localhost:8081",
-                    "http://127.0.0.1:8081",
-                    "http://192.168.0.100:8081" // jeœli uruchamiasz na fizycznym telefonie
-                )
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-
-        });
+            .WithOrigins("http://localhost:8081", "null")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+            });
 });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -39,7 +35,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

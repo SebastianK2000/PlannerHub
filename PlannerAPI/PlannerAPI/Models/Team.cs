@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlannerAPI.Models
 {
@@ -6,8 +8,15 @@ namespace PlannerAPI.Models
     {
         [Key]
         public int IDteam { get; set; }
+
         public string TeamName { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "datetime2")]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "datetime2")]
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
     }
 }
