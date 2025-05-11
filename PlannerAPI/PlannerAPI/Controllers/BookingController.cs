@@ -69,7 +69,7 @@ namespace PlannerAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(booking);
         }
 
         // POST: api/Bookings

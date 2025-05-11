@@ -69,7 +69,7 @@ namespace PlannerAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(team);
         }
 
         // POST: api/Teams

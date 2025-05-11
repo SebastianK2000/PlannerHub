@@ -61,7 +61,7 @@ namespace PlannerAPI.Controllers
             {
                 if (!AccommodationExists(id))
                 {
-                    return NotFound();
+                    return Ok(accommodation);
                 }
                 else
                 {
