@@ -96,7 +96,7 @@ namespace PlannerAPI.Controllers
             _context.Team.Remove(team);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(team);
         }
 
         private bool TeamExists(int id)

@@ -40,7 +40,7 @@ namespace PlannerAPI.Migrations
                     BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckInDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOutDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalPrice = table.Column<int>(type: "int", nullable: true),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -81,20 +81,6 @@ namespace PlannerAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TeamMember",
-                columns: table => new
-                {
-                    IDteamMember = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IDuser = table.Column<int>(type: "int", nullable: false),
-                    JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TeamMember", x => x.IDteamMember);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Trip",
                 columns: table => new
                 {
@@ -111,20 +97,6 @@ namespace PlannerAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trip", x => x.IDtrip);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TripUser",
-                columns: table => new
-                {
-                    IDtripUser = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IDuser = table.Column<int>(type: "int", nullable: false),
-                    JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TripUser", x => x.IDtripUser);
                 });
 
             migrationBuilder.CreateTable(
@@ -147,6 +119,80 @@ namespace PlannerAPI.Migrations
                 {
                     table.PrimaryKey("PK_User", x => x.IDuser);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "TeamMember",
+                columns: table => new
+                {
+                    IDteamMember = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    IDuser = table.Column<int>(type: "int", nullable: false),
+                    JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamMember", x => x.IDteamMember);
+                    table.ForeignKey(
+                        name: "FK_TeamMember_Team_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Team",
+                        principalColumn: "IDteam",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TeamMember_User_IDuser",
+                        column: x => x.IDuser,
+                        principalTable: "User",
+                        principalColumn: "IDuser",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TripUser",
+                columns: table => new
+                {
+                    IDtripUser = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IDuser = table.Column<int>(type: "int", nullable: false),
+                    IDtrip = table.Column<int>(type: "int", nullable: false),
+                    JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TripUser", x => x.IDtripUser);
+                    table.ForeignKey(
+                        name: "FK_TripUser_Trip_IDtrip",
+                        column: x => x.IDtrip,
+                        principalTable: "Trip",
+                        principalColumn: "IDtrip",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TripUser_User_IDuser",
+                        column: x => x.IDuser,
+                        principalTable: "User",
+                        principalColumn: "IDuser",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamMember_IDuser",
+                table: "TeamMember",
+                column: "IDuser");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamMember_TeamId",
+                table: "TeamMember",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripUser_IDtrip",
+                table: "TripUser",
+                column: "IDtrip");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripUser_IDuser",
+                table: "TripUser",
+                column: "IDuser");
         }
 
         /// <inheritdoc />
@@ -162,16 +208,16 @@ namespace PlannerAPI.Migrations
                 name: "Payment");
 
             migrationBuilder.DropTable(
-                name: "Team");
-
-            migrationBuilder.DropTable(
                 name: "TeamMember");
 
             migrationBuilder.DropTable(
-                name: "Trip");
+                name: "TripUser");
 
             migrationBuilder.DropTable(
-                name: "TripUser");
+                name: "Team");
+
+            migrationBuilder.DropTable(
+                name: "Trip");
 
             migrationBuilder.DropTable(
                 name: "User");

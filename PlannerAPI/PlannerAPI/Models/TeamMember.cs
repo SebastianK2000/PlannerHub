@@ -9,7 +9,15 @@ namespace PlannerAPI.Models
         [Key]
         public int IDteamMember { get; set; }
 
+        public int TeamId { get; set; }
+
+        [ForeignKey("TeamId")]
+        public Team Team { get; set; }
+
         public int IDuser { get; set; }
+
+        [ForeignKey("IDuser")]
+        public User User { get; set; }
 
         [DataType(DataType.Date)]
         [Column(TypeName = "datetime2")]

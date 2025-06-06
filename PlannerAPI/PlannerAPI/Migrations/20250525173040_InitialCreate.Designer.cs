@@ -12,7 +12,7 @@ using PlannerAPI.Models;
 namespace PlannerAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250506210215_InitialCreate")]
+    [Migration("20250525173040_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -86,8 +86,8 @@ namespace PlannerAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TotalPrice")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("IDbooking");
 
@@ -161,7 +161,14 @@ namespace PlannerAPI.Migrations
                     b.Property<DateTime>("JoinDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
                     b.HasKey("IDteamMember");
+
+                    b.HasIndex("IDuser");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("TeamMember");
                 });
@@ -210,6 +217,9 @@ namespace PlannerAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDtripUser"));
 
+                    b.Property<int>("IDtrip")
+                        .HasColumnType("int");
+
                     b.Property<int>("IDuser")
                         .HasColumnType("int");
 
@@ -217,6 +227,10 @@ namespace PlannerAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("IDtripUser");
+
+                    b.HasIndex("IDtrip");
+
+                    b.HasIndex("IDuser");
 
                     b.ToTable("TripUser");
                 });
@@ -265,6 +279,44 @@ namespace PlannerAPI.Migrations
                     b.HasKey("IDuser");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("PlannerAPI.Models.TeamMember", b =>
+                {
+                    b.HasOne("PlannerAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("IDuser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PlannerAPI.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PlannerAPI.Models.TripUser", b =>
+                {
+                    b.HasOne("PlannerAPI.Models.Trip", "Trip")
+                        .WithMany()
+                        .HasForeignKey("IDtrip")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PlannerAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("IDuser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Trip");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

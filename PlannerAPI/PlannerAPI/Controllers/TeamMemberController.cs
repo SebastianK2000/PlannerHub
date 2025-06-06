@@ -24,7 +24,10 @@ namespace PlannerAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TeamMember>>> GetTeamMember()
         {
-            return await _context.TeamMember.ToListAsync();
+            return await _context.TeamMember
+                .Include(tm => tm.User)
+                .Include(tm => tm.Team)
+                .ToListAsync();
         }
 
         // GET: api/TeamMembers/5
