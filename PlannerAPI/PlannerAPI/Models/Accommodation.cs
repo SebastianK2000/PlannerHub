@@ -8,6 +8,9 @@ namespace PlannerAPI.Models
     {
         [Key]
         public int IDaccommodation { get; set; }
+        public int? IDuser { get; set; }
+        [ForeignKey("IDuser")]
+        public virtual User User { get; set; }
 
         public string Name { get; set; }
 

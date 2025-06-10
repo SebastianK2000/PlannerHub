@@ -24,7 +24,10 @@ namespace PlannerAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBooking()
         {
-            return await _context.Booking.ToListAsync();
+            return await _context.Booking
+                .Include(b => b.User)
+                .Include(b => b.Accommodation)
+                .ToListAsync();
         }
 
         // GET: api/Bookings/5
@@ -75,11 +78,10 @@ namespace PlannerAPI.Controllers
         // POST: api/Bookings
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Booking>> PostBooking(Booking booking)
+        public async Task<ActionResult<Booking>> PostBooking([FromBody] Booking booking)
         {
             _context.Booking.Add(booking);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetBooking", new { id = booking.IDbooking }, booking);
         }
 

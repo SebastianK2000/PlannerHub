@@ -9,9 +9,18 @@ namespace PlannerAPI.Models
         [Key]
         public int IDbooking { get; set; }
 
+        [Required]
         public int IDuser { get; set; }
 
+        [Required]
         public int IDaccommodation { get; set; }
+
+        // opcjonalnie, jeśli chcesz pobierać relacje podczas GET:
+        [ForeignKey("IDuser")]
+        public User? User { get; set; }
+
+        [ForeignKey("IDaccommodation")]
+        public Accommodation? Accommodation { get; set; }
 
         [DataType(DataType.Date)]
         [Column(TypeName = "datetime2")]

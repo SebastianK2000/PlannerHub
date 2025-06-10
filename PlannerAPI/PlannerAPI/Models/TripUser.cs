@@ -9,14 +9,17 @@ namespace PlannerAPI.Models
         [Key]
         public int IDtripUser { get; set; }
 
+        [Required]
         public int IDuser { get; set; }
+
+        [Required]
         public int IDtrip { get; set; }
 
         [ForeignKey("IDuser")]
-        public User User { get; set; }
+        public User? User { get; set; }
 
         [ForeignKey("IDtrip")]
-        public Trip Trip { get; set; }
+        public Trip? Trip { get; set; }
 
         [DataType(DataType.Date)]
         [Column(TypeName = "datetime2")]
